@@ -3,6 +3,7 @@
 namespace Moves\Snowflake\Generators;
 
 use Moves\Snowflake\Contracts\ISnowflakeGenerator;
+use Moves\Snowflake\Generators\ModelflakeGenerator;
 
 /**
  * Class TwitterSnowflakeGenerator
@@ -12,11 +13,18 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  * @see https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake
  * @see https://developer.twitter.com/en/docs/twitter-ids
  */
-class TwitterSnowflakeGenerator implements ISnowflakeGenerator{
+class TwitterSnowflakeGenerator extends ModelflakeGenerator implements ISnowflakeGenerator{
+
+	// Generates a unique ID based on server variables.  This will generate a unique ID if multiple requests hits the server at the same time
+	private function generateServerId(): int{
+
+		return sprintf("%08x", abs(crc32($_SERVER['REMOTE_ADDR'] . $_SERVER['REMOTE_PORT'])));
+
+	}
 
 	public function generate(): int{
 
-		// TODO: Implement generate() method.
+		return $this->getUnixTimestamp() . $this->generateCurrentModelId() . $this->generateServerId();
 
 	}
 
