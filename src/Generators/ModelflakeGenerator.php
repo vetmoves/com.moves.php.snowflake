@@ -2,8 +2,6 @@
 
 namespace Moves\Snowflake\Generators;
 
-use Moves\Snowflake\Contracts\ISnowflakeGenerator;
-
 /**
  * Class ModelflakeGenerator
  *
@@ -12,7 +10,7 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  */
 class ModelflakeGenerator{
 
-	protected string $modelName;
+	public string $modelName;
 
 	public function __construct($model_name){
 
