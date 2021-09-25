@@ -13,16 +13,16 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  */
 class SonyflakeGenerator extends ModelflakeGenerator implements ISnowflakeGenerator{
 
-	// Generates a unique ID based on server variables.  This will generate a unique ID if multiple requests hits the server at the same time
-	private function generateServerId(): int{
+	// Generates a unique ID based on server variables and the model we're working with.  This will generate a unique ID if multiple requests hits the server at the same time
+	private function generateServerAndModelId(): int{
 
-		return sprintf("%08x", abs(crc32($_SERVER['REMOTE_ADDR'] . $_SERVER['REMOTE_PORT'])));
+		return sprintf("%08x", abs(crc32($_SERVER['REMOTE_ADDR'] . $_SERVER['REMOTE_PORT'] . $this->modelName)));
 
 	}
 
 	public function generate(): int{
 
-		return $this->getUnixTimestamp() . $this->generateCurrentModelId() . $this->generateServerId();
+		return $this->getUnixTimestamp() . $this->generateServerAndModelId();
 
 	}
 

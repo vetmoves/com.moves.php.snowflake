@@ -12,11 +12,11 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  */
 class ModelflakeGenerator{
 
-	private $model_name;
+	protected string $modelName;
 
 	public function __construct($model_name){
 
-		$this->model_name = $model_name;
+		$this->modelName = $model_name;
 
 	}
 
@@ -24,12 +24,6 @@ class ModelflakeGenerator{
 	protected function getUnixTimestamp(): int{
 
 		return time();
-
-	}
-
-	protected function generateCurrentModelId(): int{
-
-		return sprintf("%08x", abs(crc32($this->modelName)));
 
 	}
 
