@@ -12,10 +12,12 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  * @see https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake
  * @see https://developer.twitter.com/en/docs/twitter-ids
  */
-class TwitterSnowflakeGenerator implements ISnowflakeGenerator
-{
-    public function generate(): int
-    {
-        // TODO: Implement generate() method.
-    }
+class TwitterSnowflakeGenerator implements ISnowflakeGenerator{
+
+	public function generate(): int{
+
+		// TODO: Implement generate() method.
+
+	}
+
 }

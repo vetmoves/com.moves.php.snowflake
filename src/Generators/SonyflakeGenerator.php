@@ -11,10 +11,12 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  *
  * @see https://github.com/sony/sonyflake
  */
-class SonyflakeGenerator implements ISnowflakeGenerator
-{
-    public function generate(): int
-    {
-        // TODO: Implement generate() method.
-    }
+class SonyflakeGenerator implements ISnowflakeGenerator{
+
+	public function generate(): int{
+
+		// TODO: Implement generate() method.
+
+	}
+
 }
