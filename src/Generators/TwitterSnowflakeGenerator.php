@@ -18,13 +18,15 @@ class TwitterSnowflakeGenerator extends ModelflakeGenerator implements ISnowflak
 	// Generates a unique ID based on server variables and the model we're working with.  This will generate a unique ID if multiple requests hits the server at the same time
 	private function generateServerAndModelId(): int{
 
-		return sprintf("%08x", abs(crc32($_SERVER['REMOTE_ADDR'] . $_SERVER['REMOTE_PORT'] . $this->modelName)));
+		$remoteAddress = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'localhost';
+		$remotePort = isset($_SERVER['REMOTE_PORT']) ? $_SERVER['REMOTE_PORT'] : '80';
+		return abs(crc32($remoteAddress . $remotePort . $this->modelName));
 
 	}
 
 	public function generate(): int{
 
-		return $this->getUnixTimestamp() . $this->generateServerAndModelId();
+		return (int)((string)$this->getUnixTimestamp() . (string)$this->generateServerAndModelId());
 
 	}
 

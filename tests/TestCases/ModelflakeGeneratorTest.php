@@ -6,7 +6,7 @@ use Moves\Snowflake\Generators\ModelflakeGenerator;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\PHPUnitUtil;
 
-class ModelflakeGeneratorTests extends TestCase{
+class ModelflakeGeneratorTest extends TestCase{
 
 	private ?ModelflakeGenerator $modelflakeGenerator;
 	private string $modelName;
