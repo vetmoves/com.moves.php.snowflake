@@ -6,7 +6,7 @@ namespace Moves\Snowflake\Generators;
  * Class ModelflakeGenerator
  *
  * Custom implementation inspired by Twitter Snowflake.
- * Generate Snowflake IDs with a 7-bit prefix identifier for the model that the ID was generated for
+ * Generate Snowflake IDs with a prefix identifier for the model that the ID was generated for
  */
 class ModelflakeGenerator{
 
