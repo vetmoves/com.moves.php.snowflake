@@ -18,10 +18,26 @@ class ModelflakeGenerator{
 
 	}
 
+	// Generates a unique ID based on server variables and the model we're working with.  This will generate a unique ID if multiple requests hits the server at the same time
+	private function generateServerAndModelId(): int{
+
+		$remoteAddress = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'localhost';
+		$remotePort = isset($_SERVER['REMOTE_PORT']) ? $_SERVER['REMOTE_PORT'] : '80';
+		return abs(crc32($remoteAddress . $remotePort . $this->modelName));
+
+	}
+
 	// Returns current timestamp in integer format
-	protected function getUnixTimestamp(): int{
+	private function getUnixTimestamp(): int{
 
 		return time();
+
+	}
+
+	// Generates a unique ID
+	public function generate(): int{
+
+		return (int)((string)$this->getUnixTimestamp() . (string)$this->generateServerAndModelId());
 
 	}
 

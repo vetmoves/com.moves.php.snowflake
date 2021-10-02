@@ -11,7 +11,7 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  *
  * @see https://github.com/sony/sonyflake
  */
-class SonyflakeGenerator extends ModelflakeGenerator implements ISnowflakeGenerator{
+class SonyflakeGenerator implements ISnowflakeGenerator{
 
 	// Generates a unique ID based on server variables and the model we're working with.  This will generate a unique ID if multiple requests hits the server at the same time
 	private function generateServerAndModelId(): int{
@@ -22,6 +22,14 @@ class SonyflakeGenerator extends ModelflakeGenerator implements ISnowflakeGenera
 
 	}
 
+	// Returns current timestamp in integer format
+	private function getUnixTimestamp(): int{
+
+		return time();
+
+	}
+
+	// Generates a unique ID
 	public function generate(): int{
 
 		return (int)((string)$this->getUnixTimestamp() . (string)$this->generateServerAndModelId());

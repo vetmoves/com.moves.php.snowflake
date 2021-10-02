@@ -13,7 +13,7 @@ use Moves\Snowflake\Generators\ModelflakeGenerator;
  * @see https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake
  * @see https://developer.twitter.com/en/docs/twitter-ids
  */
-class TwitterSnowflakeGenerator extends ModelflakeGenerator implements ISnowflakeGenerator{
+class TwitterSnowflakeGenerator implements ISnowflakeGenerator{
 
 	// Generates a unique ID based on server variables and the model we're working with.  This will generate a unique ID if multiple requests hits the server at the same time
 	private function generateServerAndModelId(): int{
@@ -24,6 +24,14 @@ class TwitterSnowflakeGenerator extends ModelflakeGenerator implements ISnowflak
 
 	}
 
+	// Returns current timestamp in integer format
+	private function getUnixTimestamp(): int{
+
+		return time();
+
+	}
+
+	// Generates a unique ID
 	public function generate(): int{
 
 		return (int)((string)$this->getUnixTimestamp() . (string)$this->generateServerAndModelId());

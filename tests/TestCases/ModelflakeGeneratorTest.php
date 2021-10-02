@@ -24,15 +24,11 @@ class ModelflakeGeneratorTest extends TestCase{
 
 	}
 
-	public function testClassProperties(): void{
+	public function testGenerate(): void{
 
-		$this->assertEquals($this->modelflakeGenerator->modelName, $this->modelName);
-
-	}
-
-	public function testGetUnixTimestamp(): void{
-
-		$this->assertGreaterThanOrEqual(1632605117, PHPUnitUtil::callMethod($this->modelflakeGenerator, 'getUnixTimestamp'));
+		$result = $this->modelflakeGenerator->generate();
+		$this->assertEquals('integer', gettype($result));
+		$this->assertEquals(19, strlen((string)$result));
 
 	}
 
