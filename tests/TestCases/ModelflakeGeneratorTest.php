@@ -4,7 +4,6 @@ require_once('../Helpers/PHPUnitUtil.php');
 
 use Moves\Snowflake\Generators\ModelflakeGenerator;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\PHPUnitUtil;
 
 class ModelflakeGeneratorTest extends TestCase{
 
