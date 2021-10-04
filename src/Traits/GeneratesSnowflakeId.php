@@ -27,10 +27,10 @@ trait GeneratesSnowflakeId{
 		if(method_exists($this, 'getSnowflakeGenerator')){
 			return $this->getSnowflakeGenerator();
 		}
-		if($type === 'twitter'){
+		if(strtolower($type) === 'twitter'){
 			return new TwitterSnowflakeGenerator();
 		}
-		else if($type === 'sony'){
+		else if(strtolower($type) === 'sony'){
 			return new SonyflakeGenerator();
 		}
 		else{
