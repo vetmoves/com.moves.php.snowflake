@@ -15,6 +15,7 @@ use Moves\Snowflake\Traits\GeneratesSnowflakeId;
 ```
 Then initialize the generator with the following:
 ```
-_getSnowflakeGenerator(*trait_type*);
+self::bootGeneratesId(trait_type);
 ```
-This will cause a primary key to be added with all model inserts if no primary key has been defined for a specific insert
+The *trait_type* parameter is an optional parameter.  If no value is given, our trait defaults to the custom model generator.  This can be overwritten if *trait_type* is set to **twitter** or **sony**.
+This will cause a primary key to be added with all model inserts if no primary key has been defined for a specific insert.

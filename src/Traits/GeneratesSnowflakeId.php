@@ -9,7 +9,7 @@ use Moves\Snowflake\Generators\TwitterSnowflakeGenerator;
 
 trait GeneratesSnowflakeId{
 
-	public static function bootGeneratesId($type = 'twitter'){
+	public static function bootGeneratesId($type){
 
 		static::creating(function($model)use($type){
 			if(is_null($model->getKey())){
@@ -30,7 +30,7 @@ trait GeneratesSnowflakeId{
 		if($type === 'twitter'){
 			return new TwitterSnowflakeGenerator();
 		}
-		else if($type === 'twitter'){
+		else if($type === 'sony'){
 			return new SonyflakeGenerator();
 		}
 		else{
