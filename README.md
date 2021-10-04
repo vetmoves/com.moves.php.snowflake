@@ -18,4 +18,5 @@ Then initialize the generator with the following:
 self::bootGeneratesId(trait_type);
 ```
 The *trait_type* parameter is an optional parameter.  If no value is given, our trait defaults to the custom model generator.  This can be overwritten if *trait_type* is set to **twitter** or **sony**.
+<br>
 This will cause a primary key to be added with all model inserts if a primary key has not already been defined during a specific insert.
