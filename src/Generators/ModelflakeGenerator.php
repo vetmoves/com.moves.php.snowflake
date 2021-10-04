@@ -19,8 +19,8 @@ class ModelflakeGenerator implements ISnowflakeGenerator{
 	public function __construct($modelName){
 
 		$this->modelName = $modelName;
-		$this->microtimeLength = 37;
-		$this->identifierLength = 26;
+		$this->microtimeLength = 39;
+		$this->identifierLength = 24;
 
 	}
 
