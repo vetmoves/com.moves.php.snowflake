@@ -3,7 +3,6 @@
 namespace Moves\Snowflake\Generators;
 
 use Moves\Snowflake\Contracts\ISnowflakeGenerator;
-use Moves\Snowflake\Generators\ModelflakeGenerator;
 
 /**
  * Class TwitterSnowflakeGenerator
@@ -15,26 +14,37 @@ use Moves\Snowflake\Generators\ModelflakeGenerator;
  */
 class TwitterSnowflakeGenerator implements ISnowflakeGenerator{
 
-	// Generates a unique ID based on server variables and the model we're working with.  This will generate a unique ID if multiple requests hits the server at the same time
-	private function generateServerAndModelId(): int{
+	private int $microtimeLength;
+	private int $addressLength;
+	private int $portLength;
 
-		$remoteAddress = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'localhost';
-		$remotePort = isset($_SERVER['REMOTE_PORT']) ? $_SERVER['REMOTE_PORT'] : '80';
-		return abs(crc32($remoteAddress . $remotePort . $this->modelName));
+	public function __construct(){
+
+		$this->microtimeLength = 41;
+		$this->addressLength = 13;
+		$this->portLength = 9;
 
 	}
 
-	// Returns current timestamp in integer format
-	private function getUnixTimestamp(): int{
+	// Returns current micro timestamp in integer format
+	private function getUnixMicroTimestamp(): int{
 
-		return time();
+		return (int)(microtime(true) * 1000);
 
 	}
 
 	// Generates a unique ID
 	public function generate(): int{
 
-		return (int)((string)$this->getUnixTimestamp() . (string)$this->generateServerAndModelId());
+		$microtime = $this->getUnixMicroTimestamp();
+		$remoteAddress = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'localhost';
+		$remotePort = isset($_SERVER['REMOTE_PORT']) ? $_SERVER['REMOTE_PORT'] : '80';
+
+		$binMicrotime = str_pad(decbin($microtime), $this->microtimeLength, 0, STR_PAD_LEFT);
+		$binRemoteAddress = str_pad(decbin($remoteAddress), $this->addressLength, 0, STR_PAD_LEFT);
+		$binRemotePort = str_pad(decbin($remotePort), $this->portLength, 0, STR_PAD_LEFT);
+
+		return (int)bindec($binMicrotime . $binRemoteAddress . $binRemotePort);
 
 	}
 

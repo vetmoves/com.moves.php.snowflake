@@ -8,12 +8,10 @@ use PHPUnit\Framework\TestCase;
 class SonyflakeGeneratorTest extends TestCase{
 
 	private ?SonyflakeGenerator $sonyflakeGenerator;
-	private string $modelName;
 
 	protected function setup(): void{
 
-		$this->modelName = 'UsersModel';
-		$this->sonyflakeGenerator = new SonyflakeGenerator($this->modelName);
+		$this->sonyflakeGenerator = new SonyflakeGenerator();
 
 	}
 

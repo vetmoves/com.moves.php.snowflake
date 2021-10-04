@@ -3,6 +3,7 @@
 namespace Moves\Snowflake\Traits;
 
 use Moves\Snowflake\Contracts\ISnowflakeGenerator;
+use Moves\Snowflake\Generators\ModelflakeGenerator;
 use Moves\Snowflake\Generators\SonyflakeGenerator;
 use Moves\Snowflake\Generators\TwitterSnowflakeGenerator;
 
@@ -20,17 +21,20 @@ trait GeneratesSnowflakeId{
 
 	}
 
-	// Returns the appropriate generator
+	// Returns the appropriate generator.  Default generator is the model based generator
 	public function _getSnowflakeGenerator($type): ISnowflakeGenerator{
 
 		if(method_exists($this, 'getSnowflakeGenerator')){
 			return $this->getSnowflakeGenerator();
 		}
-		if($type === 'sony'){
-			return new SonyflakeGenerator(get_class($this));
+		if($type === 'twitter'){
+			return new TwitterSnowflakeGenerator();
+		}
+		else if($type === 'twitter'){
+			return new SonyflakeGenerator();
 		}
 		else{
-			return new TwitterSnowflakeGenerator(get_class($this));
+			return new ModelflakeGenerator(get_class($this));
 		}
 
 	}
