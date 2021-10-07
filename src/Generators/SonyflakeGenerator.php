@@ -13,17 +13,9 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  */
 class SonyflakeGenerator implements ISnowflakeGenerator{
 
-	private int $microtimeLength;
-	private int $machineLength;
-	private int $sequenceLength;
-
-	public function __construct(){
-
-		$this->microtimeLength = 39;
-		$this->machineLength = 16;
-		$this->sequenceLength = 8;
-
-	}
+	private int $microtimeLength = 39;
+	private int $machineLength = 16;
+	private int $sequenceLength = 8;
 
 	// Returns current micro timestamp in integer format
 	private function getUnixMicroTimestamp(): int{

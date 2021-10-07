@@ -12,15 +12,13 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  */
 class ModelflakeGenerator implements ISnowflakeGenerator{
 
-	private string $modelName;
-	private int $microtimeLength;
-	private int $identifierLength;
+	private int $modelId;
+	private int $microtimeLength = 39;
+	private int $identifierLength = 24;
 
-	public function __construct($modelName){
+	public function __construct($modelId){
 
-		$this->modelName = $modelName;
-		$this->microtimeLength = 39;
-		$this->identifierLength = 24;
+		$this->modelId = $modelId;
 
 	}
 

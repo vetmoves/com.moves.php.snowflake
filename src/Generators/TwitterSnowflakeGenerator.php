@@ -14,17 +14,9 @@ use Moves\Snowflake\Contracts\ISnowflakeGenerator;
  */
 class TwitterSnowflakeGenerator implements ISnowflakeGenerator{
 
-	private int $microtimeLength;
-	private int $addressLength;
-	private int $portLength;
-
-	public function __construct(){
-
-		$this->microtimeLength = 41;
-		$this->addressLength = 13;
-		$this->portLength = 9;
-
-	}
+	private int $microtimeLength = 41;
+	private int $addressLength = 13;
+	private int $portLength = 9;
 
 	// Returns current micro timestamp in integer format
 	private function getUnixMicroTimestamp(): int{
