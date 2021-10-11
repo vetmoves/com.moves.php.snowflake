@@ -37,7 +37,7 @@ class SonyflakeGenerator extends TwitterSnowflakeGenerator
         ^ self::MACHINE_MASK;
 
     public const TIMESTAMP_MASK = PHP_INT_MAX
-        ^ (self::SEQUENCE_MASK & self::MACHINE_MASK);
+        ^ (self::SEQUENCE_MASK | self::MACHINE_MASK);
     //endregion
 
     /**
@@ -50,4 +50,16 @@ class SonyflakeGenerator extends TwitterSnowflakeGenerator
             | ($this->getSequenceBits() << (self::BITS_MACHINE))
             | $this->getMachineBits();
     }
+
+    //region Parse Helpers
+    protected function parseSequenceBits(int $snowflake): int
+    {
+        return ($snowflake & static::SEQUENCE_MASK) >> static::BITS_MACHINE;
+    }
+
+    protected function parseMachineBits(int $snowflake): int
+    {
+        return $snowflake & static::MACHINE_MASK;
+    }
+    //endregion
 }
