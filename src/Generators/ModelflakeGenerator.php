@@ -36,16 +36,16 @@ class ModelflakeGenerator extends TwitterSnowflakeGenerator
     //endregion
 
     //region Constants
-    public const SEQUENCE_MASK = (1 << self::BITS_SEQUENCE) - 1;
+    public const SEQUENCE_MASK = (PHP_INT_MAX >> (self::BITS_MODEL + self::BITS_TIMESTAMP + self::BITS_MACHINE));
 
-    public const MACHINE_MASK = ((1 << (self::BITS_MACHINE + self::BITS_SEQUENCE)) - 1)
+    public const MACHINE_MASK = (PHP_INT_MAX >> (self::BITS_MODEL + self::BITS_TIMESTAMP))
         ^ self::SEQUENCE_MASK;
 
-    public const TIMESTAMP_MASK = ((1 << (self::BITS_TIMESTAMP + self::BITS_MACHINE + self::BITS_SEQUENCE)) - 1)
-        ^ self::MACHINE_MASK ^ self::SEQUENCE_MASK;
+    public const TIMESTAMP_MASK = (PHP_INT_MAX >> self::BITS_MODEL)
+        ^ (self::MACHINE_MASK & self::SEQUENCE_MASK);
 
     public const MODEL_MASK = PHP_INT_MAX
-        ^ self::TIMESTAMP_MASK ^ self::MACHINE_MASK ^ self::SEQUENCE_MASK;
+        ^ (self::TIMESTAMP_MASK & self::MACHINE_MASK & self::SEQUENCE_MASK);
     //endregion
 
     //region Attributes

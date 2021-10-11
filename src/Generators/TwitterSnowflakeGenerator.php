@@ -38,11 +38,13 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
     //endregion
 
     //region Constants
-    public const SEQUENCE_MASK = (1 << self::BITS_SEQUENCE) - 1;
+    public const SEQUENCE_MASK = (PHP_INT_MAX >> (self::BITS_TIMESTAMP + self::BITS_MACHINE));
 
-    public const MACHINE_MASK = ((1 << (self::BITS_MACHINE + self::BITS_SEQUENCE)) - 1) ^ self::SEQUENCE_MASK;
+    public const MACHINE_MASK =  (PHP_INT_MAX >> self::BITS_TIMESTAMP)
+        ^ self::SEQUENCE_MASK;
 
-    public const TIMESTAMP_MASK = PHP_INT_MAX ^ self::MACHINE_MASK ^ self::SEQUENCE_MASK;
+    public const TIMESTAMP_MASK = PHP_INT_MAX
+        ^ (self::MACHINE_MASK & self::SEQUENCE_MASK);
     //endregion
 
     //region Attributes

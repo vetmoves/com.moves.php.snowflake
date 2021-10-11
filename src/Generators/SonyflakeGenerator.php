@@ -31,15 +31,18 @@ class SonyflakeGenerator extends TwitterSnowflakeGenerator
     //endregion
 
     //region Constants
-    public const MACHINE_MASK = (1 << self::BITS_MACHINE) - 1;
+    public const MACHINE_MASK = PHP_INT_MAX >> (self::BITS_TIMESTAMP + self::BITS_SEQUENCE);
 
-    public const SEQUENCE_MASK = ((1 << (self::BITS_SEQUENCE + self::BITS_MACHINE)) - 1) ^ self::MACHINE_MASK;
+    public const SEQUENCE_MASK = (PHP_INT_MAX >> self::BITS_TIMESTAMP)
+        ^ self::MACHINE_MASK;
 
-    public const TIMESTAMP_MASK = PHP_INT_MAX ^ self::SEQUENCE_MASK ^ self::MACHINE_MASK;
+    public const TIMESTAMP_MASK = PHP_INT_MAX
+        ^ (self::SEQUENCE_MASK & self::MACHINE_MASK);
     //endregion
 
     /**
      * @inheritDoc
+     * @throws \Moves\Snowflake\Exceptions\SnowflakeBitLengthException
      */
     public function generate(): int
     {
