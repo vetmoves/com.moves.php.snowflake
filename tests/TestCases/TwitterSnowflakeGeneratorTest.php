@@ -2,7 +2,9 @@
 
 namespace Tests\TestCases;
 
+use Closure;
 use DateTime;
+use DateTimeInterface;
 use Moves\Snowflake\Contracts\ISnowflakeGenerator;
 use Moves\Snowflake\Exceptions\SnowflakeBitLengthException;
 use Moves\Snowflake\Generators\TwitterSnowflakeGenerator;
@@ -24,14 +26,24 @@ class TwitterSnowflakeGeneratorTest extends TestCase
         return static::$sequenceId;
     }
 
+    protected function getGenerator(
+        int $machineId = null,
+        Closure $sequenceGenerator = null,
+        DateTimeInterface $epoch = null
+    ): ISnowflakeGenerator
+    {
+        return new (static::GENERATOR_CLASS)(
+            $machineId ?? static::MACHINE_ID,
+            $sequenceGenerator ?? function () { return $this->getNextSequenceId(); },
+            $epoch
+        );
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->generator = new (static::GENERATOR_CLASS)(
-            static::MACHINE_ID,
-            function () { return $this->getNextSequenceId(); }
-        );
+        $this->generator = $this->getGenerator();
     }
 
 
@@ -100,23 +112,23 @@ class TwitterSnowflakeGeneratorTest extends TestCase
             $count1s);
     }
 
-//    public function testGeneratesUniqueIds()
-//    {
-//        $snowflakes = [];
-//        $numIds = (2 << (static::GENERATOR_CLASS)::BITS_SEQUENCE);
-//
-//        for ($i = 0; $i < $numIds; $i++) {
-//            $snowflakes[] = $this->generator->generate();
-//        }
-//
-//        $this->assertCount($numIds, array_unique($snowflakes));
-//    }
+    public function testGeneratesUniqueIds()
+    {
+        $snowflakes = [];
+        $numIds = (1 << (static::GENERATOR_CLASS)::BITS_SEQUENCE);
+
+        for ($i = 0; $i < $numIds; $i++) {
+            $snowflakes[] = $this->generator->generate();
+        }
+
+        $this->assertCount($numIds, array_unique($snowflakes));
+    }
 
     public function testTimestampOverflow()
     {
-        $generator = new (static::GENERATOR_CLASS)(
-            static::MACHINE_ID,
-            function () { return $this->getNextSequenceId(); },
+        $generator = $this->getGenerator(
+            null,
+            null,
             new DateTime('1800-01-01')
         );
 
@@ -127,10 +139,7 @@ class TwitterSnowflakeGeneratorTest extends TestCase
 
     public function testMachineOverflow()
     {
-        $generator = new (static::GENERATOR_CLASS)(
-            1 << (static::GENERATOR_CLASS)::BITS_MACHINE,
-            function () { return $this->getNextSequenceId(); }
-        );
+        $generator = $this->getGenerator(1 << (static::GENERATOR_CLASS)::BITS_MACHINE);
 
         $this->expectException(SnowflakeBitLengthException::class);
 
@@ -139,8 +148,8 @@ class TwitterSnowflakeGeneratorTest extends TestCase
 
     public function testSequenceOverflow()
     {
-        $generator = new (static::GENERATOR_CLASS)(
-            static::MACHINE_ID,
+        $generator = $this->getGenerator(
+            null,
             function () { return (1 << (static::GENERATOR_CLASS)::BITS_SEQUENCE); }
         );
 

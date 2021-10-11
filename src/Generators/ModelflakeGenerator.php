@@ -99,7 +99,7 @@ class ModelflakeGenerator extends TwitterSnowflakeGenerator
      */
     public function getModelBits(): int
     {
-        if ($this->model > (1 << self::BITS_MODEL)) {
+        if ($this->model >= (1 << self::BITS_MODEL)) {
             throw new SnowflakeBitLengthException(
                 'Model Prefix',
                 self::BITS_MODEL,
