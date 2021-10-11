@@ -20,21 +20,29 @@ use Moves\Snowflake\Exceptions\SnowflakeBitLengthException;
  */
 class TwitterSnowflakeGenerator implements ISnowflakeGenerator
 {
-    //region Constants
+    //region Configuration
     /** @var int Allocated bits for timestamp */
-    const BIT_LEN_TIMESTAMP = 41;
+    const BITS_TIMESTAMP = 41;
 
     /** @var int Allocated bits for machine id */
-    const BIT_LEN_MACHINE = 10;
+    const BITS_MACHINE = 10;
 
     /** @var int Allocated bits for sequence number */
-    const BIT_LEN_SEQUENCE = 12;
+    const BITS_SEQUENCE = 12;
 
     /** @var string Default epoch start date */
     const DEFAULT_EPOCH = '1970-01-01 00:00:00 +0000 UTC';
 
     /** @var int Multiplier from microseconds to timestamp unit ms */
     const TIMESTAMP_MULTIPLIER = 1000;
+    //endregion
+
+    //region Constants
+    public const SEQUENCE_MASK = (1 << self::BITS_SEQUENCE) - 1;
+
+    public const MACHINE_MASK = ((1 << (self::BITS_MACHINE + self::BITS_SEQUENCE)) - 1) ^ self::SEQUENCE_MASK;
+
+    public const TIMESTAMP_MASK = PHP_INT_MAX ^ self::MACHINE_MASK ^ self::SEQUENCE_MASK;
     //endregion
 
     //region Attributes
@@ -68,8 +76,8 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
      */
     public function generate(): int
     {
-        return ($this->getTimestampBits() << (self::BIT_LEN_MACHINE + self::BIT_LEN_SEQUENCE))
-            | ($this->getMachineBits() << (self::BIT_LEN_SEQUENCE))
+        return ($this->getTimestampBits() << (self::BITS_MACHINE + self::BITS_SEQUENCE))
+            | ($this->getMachineBits() << (self::BITS_SEQUENCE))
             | $this->getSequenceBits();
     }
 
@@ -94,10 +102,10 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
     {
         $timestamp = $this->epochTimestamp - intval(microtime(true) * self::TIMESTAMP_MULTIPLIER);
 
-        if ($timestamp >= (1 << self::BIT_LEN_TIMESTAMP)) {
+        if ($timestamp >= (1 << self::BITS_TIMESTAMP)) {
             throw new SnowflakeBitLengthException(
                 'Timestamp',
-                self::BIT_LEN_TIMESTAMP,
+                self::BITS_TIMESTAMP,
                 $timestamp
             );
         }
@@ -111,10 +119,10 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
      */
     protected function getMachineBits(): int
     {
-        if ($this->machineId >= (1 << self::BIT_LEN_MACHINE)) {
+        if ($this->machineId >= (1 << self::BITS_MACHINE)) {
             throw new SnowflakeBitLengthException(
                 'Machine ID',
-                self::BIT_LEN_MACHINE,
+                self::BITS_MACHINE,
                 $this->machineId
             );
         }
@@ -130,10 +138,10 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
     {
         $sequence = ($this->sequenceGenerator)();
 
-        if ($sequence >= (1 << self::BIT_LEN_SEQUENCE)) {
+        if ($sequence >= (1 << self::BITS_SEQUENCE)) {
             throw new SnowflakeBitLengthException(
                 'Sequence',
-                self::BIT_LEN_SEQUENCE,
+                self::BITS_SEQUENCE,
                 $sequence
             );
         }
@@ -145,25 +153,17 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
     //region Parse Helpers
     protected function parseTimestampBits(int $snowflake): int
     {
-        $mask = PHP_INT_MAX;
-        $mask = $mask ^ ((1 << (self::BIT_LEN_MACHINE + self::BIT_LEN_SEQUENCE)) - 1);
-
-        return $snowflake & $mask;
+        return $snowflake & self::TIMESTAMP_MASK;
     }
 
     protected function parseMachineBits(int $snowflake): int
     {
-        $mask = (1 << (self::BIT_LEN_MACHINE + self::BIT_LEN_SEQUENCE)) - 1;
-        $mask = $mask ^ ((1 << self::BIT_LEN_SEQUENCE) - 1);
-
-        return $snowflake & $mask;
+        return $snowflake & self::MACHINE_MASK;
     }
 
     protected function parseSequenceBits(int $snowflake): int
     {
-        $mask = (1 << self::BIT_LEN_SEQUENCE) - 1;
-
-        return $snowflake & $mask;
+        return $snowflake & self::SEQUENCE_MASK;
     }
     //endregion
 }

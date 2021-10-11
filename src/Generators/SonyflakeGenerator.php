@@ -13,15 +13,15 @@ namespace Moves\Snowflake\Generators;
  */
 class SonyflakeGenerator extends TwitterSnowflakeGenerator
 {
-    //region Constants
+    //region Configuration
     /** @var int Allocated bits for timestamp */
-    const BIT_LEN_TIMESTAMP = 39;
+    const BITS_TIMESTAMP = 39;
 
     /** @var int Allocated bits for machine id */
-    const BIT_LEN_SEQUENCE = 8;
+    const BITS_SEQUENCE = 8;
 
     /** @var int Allocated bits for sequence number */
-    const BIT_LEN_MACHINE = 16;
+    const BITS_MACHINE = 16;
 
     /** @var string Default epoch start date */
     const DEFAULT_EPOCH = '2014-09-01 00:00:00 +0000 UTC';
@@ -30,30 +30,21 @@ class SonyflakeGenerator extends TwitterSnowflakeGenerator
     const TIMESTAMP_MULTIPLIER = 100;
     //endregion
 
+    //region Constants
+    public const MACHINE_MASK = (1 << self::BITS_MACHINE) - 1;
+
+    public const SEQUENCE_MASK = ((1 << (self::BITS_SEQUENCE + self::BITS_MACHINE)) - 1) ^ self::MACHINE_MASK;
+
+    public const TIMESTAMP_MASK = PHP_INT_MAX ^ self::SEQUENCE_MASK ^ self::MACHINE_MASK;
+    //endregion
+
     /**
      * @inheritDoc
      */
     public function generate(): int
     {
-        return ($this->getTimestampBits() << (self::BIT_LEN_SEQUENCE + self::BIT_LEN_MACHINE))
-            | ($this->getSequenceBits() << (self::BIT_LEN_MACHINE))
+        return ($this->getTimestampBits() << (self::BITS_SEQUENCE + self::BITS_MACHINE))
+            | ($this->getSequenceBits() << (self::BITS_MACHINE))
             | $this->getMachineBits();
     }
-
-    //region Parse Helpers
-    protected function parseSequenceBits(int $snowflake): int
-    {
-        $mask = ((1 << (self::BIT_LEN_SEQUENCE + self::BIT_LEN_MACHINE)) - 1);
-        $mask = $mask ^ (1 << self::BIT_LEN_SEQUENCE) - 1;
-
-        return $snowflake & $mask;
-    }
-
-    protected function parseMachineBits(int $snowflake): int
-    {
-        $mask = (1 << self::BIT_LEN_SEQUENCE) - 1;
-
-        return $snowflake & $mask;
-    }
-    //endregion
 }
