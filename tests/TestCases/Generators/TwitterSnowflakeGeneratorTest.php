@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\TestCases;
+namespace Tests\TestCases\Generators;
 
 use Closure;
 use DateTime;
@@ -8,7 +8,7 @@ use DateTimeInterface;
 use Moves\Snowflake\Contracts\ISnowflakeGenerator;
 use Moves\Snowflake\Exceptions\SnowflakeBitLengthException;
 use Moves\Snowflake\Generators\TwitterSnowflakeGenerator;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCases\TestCase;
 
 class TwitterSnowflakeGeneratorTest extends TestCase
 {
@@ -160,11 +160,8 @@ class TwitterSnowflakeGeneratorTest extends TestCase
 
     public function testParse()
     {
-        $epochDateTime = ($epoch ?? new DateTime((static::GENERATOR_CLASS)::DEFAULT_EPOCH));
-        $epochTimestamp = $epochDateTime->getTimestamp() * (static::GENERATOR_CLASS)::TIMESTAMP_MULTIPLIER;
-
         $now = intval(microtime(true) * (static::GENERATOR_CLASS)::TIMESTAMP_MULTIPLIER)
-            - $epochTimestamp;
+            - $this->generator->getEpochTimestamp();
 
         $snowflake = $this->generator->generate();
         $components = $this->generator->parse($snowflake);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\TestCases;
+namespace Tests\TestCases\Generators;
 
 use Moves\Snowflake\Generators\SonyflakeGenerator;
 

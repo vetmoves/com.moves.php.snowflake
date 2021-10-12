@@ -95,6 +95,11 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
         ];
     }
 
+    public function getEpochTimestamp(): int
+    {
+        return $this->epochTimestamp;
+    }
+
     //region Generate Helpers
     /**
      * @throws SnowflakeBitLengthException
@@ -104,7 +109,7 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
     {
         $timestamp = intval(microtime(true) * static::TIMESTAMP_MULTIPLIER) - $this->epochTimestamp;
 
-        if ($timestamp >= (1 << static::BITS_TIMESTAMP)) {
+        if ($timestamp >= (1 << static::BITS_TIMESTAMP) || $timestamp < 0) {
             throw new SnowflakeBitLengthException(
                 'Timestamp',
                 static::BITS_TIMESTAMP,
@@ -121,7 +126,7 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
      */
     protected function getMachineBits(): int
     {
-        if ($this->machineId >= (1 << static::BITS_MACHINE)) {
+        if ($this->machineId >= (1 << static::BITS_MACHINE) || $this->machineId < 0) {
             throw new SnowflakeBitLengthException(
                 'Machine ID',
                 static::BITS_MACHINE,
@@ -140,7 +145,7 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
     {
         $sequence = ($this->sequenceGenerator)();
 
-        if ($sequence >= (1 << static::BITS_SEQUENCE)) {
+        if ($sequence >= (1 << static::BITS_SEQUENCE) || $sequence < 0) {
             throw new SnowflakeBitLengthException(
                 'Sequence',
                 static::BITS_SEQUENCE,
