@@ -2,9 +2,7 @@
 
 namespace Tests\TestCases\Traits;
 
-use DateTime;
 use Illuminate\Support\Facades\Cache;
-use Moves\Snowflake\Generators\ModelflakeGenerator;
 use Moves\Snowflake\Generators\TwitterSnowflakeGenerator;
 use Tests\Models\TwitterSnowflakeModel;
 use Tests\TestCases\TestCase;
@@ -32,10 +30,40 @@ class EloquentTwitterSnowflakeIdTest extends TestCase
 
         $components = $generator->parse($snowflake);
 
-        $this->assertLessThanOrEqual(10, abs($components['timestamp'] - $timestamp));
+        $this->assertLessThanOrEqual(25, abs($components['timestamp'] - $timestamp));
         $this->assertEquals(config('snowflake.machine_id'), $components['machine']);
         $this->assertEquals(Cache::get('snowflake_sequence'), $components['sequence']);
 
         return $components;
+    }
+
+    public function testSequenceWrapsOnOverflow()
+    {
+        $sequenceNumbers = [];
+
+        $numIds = (1 << (self::GENERATOR_CLASS)::BITS_SEQUENCE);
+
+        $generator = null;
+
+        // Test generating a number of models equal to the maximum sequence number + 1
+        // The first and the last instance should have the same sequence number
+        for ($i = 0; $i < $numIds + 1; $i++)
+        {
+            $model = (self::MODEL_CLASS)::create();
+
+            if (is_null($generator)) {
+                $generator = $model->getSnowflakeGenerator();
+            }
+
+            $components = $generator->parse($model->id);
+
+            if ($i == $numIds) {
+                $this->assertContains($components['sequence'], $sequenceNumbers);
+            }
+
+            $sequenceNumbers[] = $components['sequence'];
+        }
+
+        $this->assertCount($numIds, array_unique($sequenceNumbers));
     }
 }
