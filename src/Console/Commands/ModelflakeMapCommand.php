@@ -63,6 +63,6 @@ class ModelflakeMapCommand extends Command
 
         file_put_contents(config_path('modelflake.php'), $contents);
 
-        $this->info('Successfully generated config/modelflake.php!');
+        $this->info('Successfully generated ' . config_path('modelflake.php') . '!');
     }
 }
