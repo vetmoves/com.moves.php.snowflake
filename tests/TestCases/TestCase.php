@@ -31,4 +31,4 @@ abstract class TestCase extends BaseTestCase
             'prefix'   => '',
         ]);
     }
-} 
+}
