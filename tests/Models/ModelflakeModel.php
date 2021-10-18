@@ -14,6 +14,6 @@ class ModelflakeModel extends Model
     public static function booting()
     {
         $class = class_basename(self::class);
-        config(["snowflake.modelflake.$class" => 1]);
+        config(["modelflake.$class" => 1]);
     }
 }

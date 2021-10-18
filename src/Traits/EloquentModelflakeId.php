@@ -27,6 +27,6 @@ trait EloquentModelflakeId
     {
         $class = class_basename(static::class);
 
-        return config("snowflake.modelflake.$class", -1);
+        return config("modelflake.$class", -1);
     }
 }
