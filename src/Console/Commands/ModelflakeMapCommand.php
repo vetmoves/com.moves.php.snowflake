@@ -12,20 +12,38 @@ class ModelflakeMapCommand extends Command
 {
     protected $signature = 'modelflake:map';
 
-    protected $description = 'Generate Modelflake mapping configuration for model classes to unique prefixes';
+    protected $description = 'Generate Modelflake mapping configuration for model classes to unique prefixes.';
 
     public function handle()
     {
-        $models = $this->getModels();
+        $configuredModels = $this->getConfiguredModels();
+        $this->info($configuredModels->count() . ' model(s) already configured (skipping)');
 
-        $this->writeConfigFile($models);
+        $projectModels = $this->getProjectModels();
+
+        $newModels = $projectModels->diff($configuredModels->keys());
+        $this->info($newModels->count() . ' new model(s) found');
+
+        $prefix = ($configuredModels->max() ?? -1) + 1;
+
+        $combined = $configuredModels;
+        foreach ($newModels as $model) {
+            $combined[$model] = $prefix;
+            $prefix++;
+        }
+
+        if ($this->writeConfigFile($combined) !== false) {
+            $this->info('Successfully wrote ' . config_path('modelflake.php'));
+        } else {
+            $this->warn('There was a problem generating ' . config_path('modelflake.php'));
+        }
     }
 
     /**
      * @see https://stackoverflow.com/a/60310985
      * @return Collection
      */
-    protected function getModels(): Collection
+    protected function getProjectModels(): Collection
     {
         $models = collect(File::allFiles(app_path()))
             ->map(function ($item) {
@@ -51,18 +69,25 @@ class ModelflakeMapCommand extends Command
         return $models->values();
     }
 
+    protected function getConfiguredModels(): Collection
+    {
+        if (File::exists(config_path('modelflake.php'))) {
+            return collect(require config_path('modelflake.php'));
+        }
+
+        return collect();
+    }
+
     protected function writeConfigFile(Collection $models) {
         $contents = '<?php' . PHP_EOL . PHP_EOL;
         $contents .= 'return [' . PHP_EOL;
 
-        foreach ($models as $i => $model) {
-            $contents .= "\t" . "'$model' => $i," . PHP_EOL;
+        foreach ($models as $model => $prefix) {
+            $contents .= "\t" . "$model::class => $prefix," . PHP_EOL;
         }
 
         $contents .= '];' . PHP_EOL;
 
-        file_put_contents(config_path('modelflake.php'), $contents);
-
-        $this->info('Successfully generated ' . config_path('modelflake.php') . '!');
+        return file_put_contents(config_path('modelflake.php'), $contents);
     }
 }
