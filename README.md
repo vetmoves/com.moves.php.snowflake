@@ -38,10 +38,15 @@ all server instances. This is only possible via a dedicated microservice, or via
 #### Usage
 To use the ID generator of your choice on your Eloquent Model classes, simply add the corresponding trait
 to your Model.
+
 `Moves\Snowflake\Traits\EloquentTwitterSnowflakeId` for Twitter Snowflake
+
 `Moves\Snowflake\Traits\EloquentSonyflakeId` for Twitter Snowflake
+
 `Moves\Snowflake\Traits\EloquentModelflakeId` for Twitter Snowflake
+
 or
+
 `Moves\Snowflake\Traits\EloquentSnowflakeId` to specify your own custom ID Generator class
 
 ```
