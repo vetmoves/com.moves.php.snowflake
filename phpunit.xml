@@ -23,6 +23,7 @@
   </coverage>
   <php>
     <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+    <env name="SNOWFLAKE_MACHINE_ID" value="1"/>
   </php>
   <testsuites>
     <testsuite name="Package Test Suite">

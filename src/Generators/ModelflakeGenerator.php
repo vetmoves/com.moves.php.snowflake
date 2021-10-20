@@ -99,7 +99,7 @@ class ModelflakeGenerator extends TwitterSnowflakeGenerator
      */
     public function getModelBits(): int
     {
-        if ($this->model >= (1 << self::BITS_MODEL)) {
+        if ($this->model >= (1 << self::BITS_MODEL) || $this->model < 0) {
             throw new SnowflakeBitLengthException(
                 'Model Prefix',
                 self::BITS_MODEL,
@@ -114,7 +114,7 @@ class ModelflakeGenerator extends TwitterSnowflakeGenerator
     //region Parse Helpers
     protected function parseModelBits(int $snowflake): int
     {
-        return $snowflake & self::MODEL_MASK;
+        return ($snowflake & self::MODEL_MASK) >> (self::BITS_TIMESTAMP + self::BITS_MACHINE + self::BITS_SEQUENCE);
     }
     //endregion
 }
