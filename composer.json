@@ -38,5 +38,6 @@
                 "Moves\\Snowflake\\Providers\\SnowflakeProvider"
             ]
         }
-    }
+    },
+    "version": "1.0.1"
 }

@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.1](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.0.0...1.0.1) (2021-12-17)
+### Bug Fixes
+
+* Use full class name for Modelflake config ([50c9a1](https://github.com/vetmoves/com.moves.php.snowflake/commit/50c9a12e76f9f15bfa9dff46f5505c27c65e92ea))
+
+
+---
+
 ## [1.0.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/0.0.0...1.0.0) (2021-12-02)
 ### Features
 
