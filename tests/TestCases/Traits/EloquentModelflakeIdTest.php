@@ -15,7 +15,18 @@ class EloquentModelflakeIdTest extends EloquentTwitterSnowflakeIdTest
     {
         $components = parent::testGeneratesSnowflakeIdOnCreate();
 
-        $class = class_basename(static::MODEL_CLASS);
+        $class = static::MODEL_CLASS;
+
+        $this->assertEquals(config("modelflake.$class"), $components['model']);
+
+        return $components;
+    }
+
+    public function testParseSnowflakeId()
+    {
+        $components = parent::testParseSnowflakeId();
+
+        $class = static::MODEL_CLASS;
 
         $this->assertEquals(config("modelflake.$class"), $components['model']);
 

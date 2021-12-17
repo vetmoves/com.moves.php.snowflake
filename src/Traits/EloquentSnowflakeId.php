@@ -43,4 +43,13 @@ trait EloquentSnowflakeId
             return $new;
         };
     }
+
+    public function parseSnowflakeId(): ?array
+    {
+        if (!is_null($this->getKey())) {
+            return $this->getSnowflakeGenerator()->parse($this->getKey());
+        }
+
+        return null;
+    }
 }

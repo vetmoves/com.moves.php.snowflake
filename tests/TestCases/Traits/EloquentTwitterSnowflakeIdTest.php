@@ -66,4 +66,34 @@ class EloquentTwitterSnowflakeIdTest extends TestCase
 
         $this->assertCount($numIds, array_unique($sequenceNumbers));
     }
+
+
+    public function testParseSnowflakeId()
+    {
+        $model = (static::MODEL_CLASS)::create();
+        $generator = $model->getSnowflakeGenerator();
+
+        $now = intval(microtime(true) * (static::GENERATOR_CLASS)::TIMESTAMP_MULTIPLIER)
+            - $generator->getEpochTimestamp();
+
+        $components = $model->parseSnowflakeId();
+
+        //Compare snowflake timestamp with current timestamp with a 5 ms buffer for compute time
+        $this->assertLessThanOrEqual(5, abs($components['timestamp'] - $now));
+
+        $this->assertEquals(config('snowflake.machine_id'), $components['machine']);
+        $this->assertEquals(Cache::get('snowflake_sequence'), $components['sequence']);
+
+        return $components;
+    }
+
+    public function testParseSnowflakeIdEmpty()
+    {
+        $class = static::MODEL_CLASS;
+        $model = new $class;
+
+        $parsed = $model->parseSnowflakeId();
+
+        $this->assertNull($parsed);
+    }
 }

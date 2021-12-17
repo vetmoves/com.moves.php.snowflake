@@ -32,7 +32,8 @@ class TwitterSnowflakeGeneratorTest extends TestCase
         DateTimeInterface $epoch = null
     ): ISnowflakeGenerator
     {
-        return new (static::GENERATOR_CLASS)(
+        $generatorClass = static::GENERATOR_CLASS;
+        return new $generatorClass(
             $machineId ?? static::MACHINE_ID,
             $sequenceGenerator ?? function () { return $this->getNextSequenceId(); },
             $epoch

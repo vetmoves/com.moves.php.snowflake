@@ -21,7 +21,8 @@ class ModelflakeGeneratorTest extends TwitterSnowflakeGeneratorTest
         int $modelId = null
     ): ISnowflakeGenerator
     {
-        return new (static::GENERATOR_CLASS)(
+        $generatorClass = static::GENERATOR_CLASS;
+        return new $generatorClass(
             $modelId ?? static::MODEL_ID,
             $machineId ?? static::MACHINE_ID,
             $sequenceGenerator ?? function () { return $this->getNextSequenceId(); },

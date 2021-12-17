@@ -13,7 +13,7 @@ class ModelflakeModel extends Model
 
     public static function booting()
     {
-        $class = class_basename(self::class);
+        $class = self::class;
         config(["modelflake.$class" => 1]);
     }
 }
