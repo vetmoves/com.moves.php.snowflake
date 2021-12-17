@@ -25,7 +25,7 @@ trait EloquentModelflakeId
 
     protected function _getModelPrefix(): int
     {
-        $class = class_basename(static::class);
+        $class = static::class;
 
         return config("modelflake.$class", -1);
     }
