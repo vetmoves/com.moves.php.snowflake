@@ -25,6 +25,10 @@ trait EloquentModelflakeId
 
     protected function _getModelPrefix(): int
     {
+        if (method_exists($this, 'getModelPrefix')) {
+            return $this->getModelPrefix();
+        }
+
         $class = static::class;
 
         return config("modelflake.$class", -1);

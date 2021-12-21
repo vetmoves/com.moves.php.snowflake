@@ -26,11 +26,19 @@ trait EloquentSnowflakeId
 
     protected function _getMachineId(): int
     {
+        if (method_exists($this, 'getMachineId')) {
+            return $this->getMachineId();
+        }
+
         return config('snowflake.machine_id');
     }
 
     public function _getSequenceGenerator(): Closure
     {
+        if (method_exists($this, 'getSequenceGenerator')) {
+            return $this->getSequenceGenerator();
+        }
+
         $generatorClass = $this->getGeneratorClass();
 
         return function() use ($generatorClass): int  {
