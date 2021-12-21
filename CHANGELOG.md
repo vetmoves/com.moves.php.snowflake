@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.3.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.2.0...1.3.0) (2021-12-21)
+### Features
+
+* Add override functions for generator traits ([edc9be](https://github.com/vetmoves/com.moves.php.snowflake/commit/edc9beda9ecd8ab94a3bd259a68183b5c0d17af8))
+
+
+---
+
 ## [1.2.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.1.0...1.2.0) (2021-12-21)
 ### Features
 
