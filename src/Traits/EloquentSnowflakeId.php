@@ -11,12 +11,17 @@ trait EloquentSnowflakeId
     {
         static::creating(function ($model) {
             if (is_null($model->getKey())) {
-                $generator = $model->getSnowflakeGenerator();
-
-                $keyField = $model->getKeyName();
-                $model->$keyField = $generator->generate();
+                $model->generateSnowflakeId();
             }
         });
+    }
+
+    public function generateSnowflakeId()
+    {
+        $generator = $this->getSnowflakeGenerator();
+
+        $keyField = $this->getKeyName();
+        $this->$keyField = $generator->generate();
     }
 
     protected function _getMachineId(): int
