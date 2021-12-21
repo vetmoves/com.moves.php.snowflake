@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.2.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.1.0...1.2.0) (2021-12-21)
+### Features
+
+* Add generateSnowflakeId function ([269fa6](https://github.com/vetmoves/com.moves.php.snowflake/commit/269fa6540a20b5d51f8599c215fffa8a4894eba0))
+
+
+---
+
 ## [1.1.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.0.1...1.1.0) (2021-12-17)
 ### Features
 
