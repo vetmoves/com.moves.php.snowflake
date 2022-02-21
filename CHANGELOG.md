@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.4.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.3.0...1.4.0) (2022-02-21)
+### Features
+
+* Add class trait filter to Modelflake map command ([82cba2](https://github.com/vetmoves/com.moves.php.snowflake/commit/82cba2237685fb2993b0fb46b0146fbefbbc3fca))
+
+
+---
+
 ## [1.3.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.2.0...1.3.0) (2021-12-21)
 ### Features
 
