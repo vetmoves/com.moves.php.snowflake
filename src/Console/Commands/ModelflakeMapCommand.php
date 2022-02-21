@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use Moves\Snowflake\Traits\EloquentModelflakeId;
 
 class ModelflakeMapCommand extends Command
 {
@@ -60,7 +61,8 @@ class ModelflakeMapCommand extends Command
                 if (class_exists($class)) {
                     $reflection = new \ReflectionClass($class);
                     $valid = $reflection->isSubclassOf(Model::class) &&
-                        !$reflection->isAbstract();
+                        !$reflection->isAbstract() &&
+                        in_array(EloquentModelflakeId::class, class_uses($class));
                 }
 
                 return $valid;
