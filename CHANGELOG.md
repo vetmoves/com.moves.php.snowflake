@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.6.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.5.0...1.6.0) (2022-03-16)
+### Features
+
+* Handle snowflake casting in Eloquent getCasts method, not on trait initialization ([2b7a94](https://github.com/vetmoves/com.moves.php.snowflake/commit/2b7a941ca2544e692f14dacade8b9a1ee76ed902))
+
+
+---
+
 ## [1.5.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.4.0...1.5.0) (2022-03-16)
 ### Features
 
