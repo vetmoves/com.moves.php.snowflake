@@ -16,6 +16,13 @@ trait EloquentSnowflakeId
         });
     }
 
+    public function initializeEloquentSnowflakeId()
+    {
+        if (!array_key_exists($this->getKeyName(), $this->casts)) {
+            $this->casts[$this->getKeyName()] = 'string';
+        }
+    }
+
     public function generateSnowflakeId()
     {
         $generator = $this->getSnowflakeGenerator();

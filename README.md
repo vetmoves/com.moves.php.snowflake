@@ -62,6 +62,11 @@ public class MyModel extends Model
 On `create`, your model class will automatically generate a unique ID and apply it to your model instance before
 it is inserted into the database.
 
+Note that JavaScript only supports up to 53-bit integers, and thus integer snowflake IDs will not be processed
+as the correct value when retrieved as data from your API. As such, all of the included ID generation traits also
+automatically add string casting on your model's key field so snowflake IDs are returned as strings when using 
+`toArray` or `toJson`.
+
 #### Overriding Default Sequence Number Generation
 The supplied traits provide a default implementation for generating a unique sequence number, relying on Laravel's
 Cache facade and atomic locking. However, you can override the default implementation by providing your own
