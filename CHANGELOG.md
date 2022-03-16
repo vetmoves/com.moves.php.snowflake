@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.6.1](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.6.0...1.6.1) (2022-03-16)
+### Bug Fixes
+
+* Use snake case for checking snowflake key suffix ([0679e1](https://github.com/vetmoves/com.moves.php.snowflake/commit/0679e1cffe72f12c51ef3de37838cbbd43200e0c))
+
+
+---
+
 ## [1.6.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.5.0...1.6.0) (2022-03-16)
 ### Features
 
