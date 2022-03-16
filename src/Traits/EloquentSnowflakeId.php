@@ -4,6 +4,7 @@ namespace Moves\Snowflake\Traits;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 trait EloquentSnowflakeId
 {
@@ -16,11 +17,44 @@ trait EloquentSnowflakeId
         });
     }
 
-    public function initializeEloquentSnowflakeId()
+    public function getIncrementing()
     {
-        if (!array_key_exists($this->getKeyName(), $this->casts)) {
-            $this->casts[$this->getKeyName()] = 'string';
+        return false;
+    }
+
+    public function getCasts()
+    {
+        $casts = parent::getCasts();
+
+        foreach ($this->getSnowflakeFields() as $field) {
+            if (!array_key_exists($field, $casts)) {
+                $casts[$field] = 'string';
+            }
         }
+
+        return $casts;
+    }
+
+    public function getSnowflakeFields(): array
+    {
+        if (isset($this->snowflakeFields)) {
+            return $this->snowflakeFields;
+        }
+
+        return $this->guessSnowflakeFields();
+    }
+
+    public function guessSnowflakeFields(): array
+    {
+        $key = $this->getKeyName();
+        $keySuffix = Str::of($key)->explode('_')->last();
+
+        return array_filter(
+            array_keys($this->attributes),
+            function ($field) use ($keySuffix) {
+                return str_ends_with($field, $keySuffix);
+            }
+        );
     }
 
     public function generateSnowflakeId()

@@ -78,8 +78,8 @@ class EloquentTwitterSnowflakeIdTest extends TestCase
 
         $components = $model->parseSnowflakeId();
 
-        //Compare snowflake timestamp with current timestamp with a 5 ms buffer for compute time
-        $this->assertLessThanOrEqual(5, abs($components['timestamp'] - $now));
+        //Compare snowflake timestamp with current timestamp with a 10 ms buffer for compute time
+        $this->assertLessThanOrEqual(10, abs($components['timestamp'] - $now));
 
         $this->assertEquals(config('snowflake.machine_id'), $components['machine']);
         $this->assertEquals(Cache::get('snowflake_sequence'), $components['sequence']);

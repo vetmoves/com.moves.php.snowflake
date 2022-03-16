@@ -167,8 +167,8 @@ class TwitterSnowflakeGeneratorTest extends TestCase
         $snowflake = $this->generator->generate();
         $components = $this->generator->parse($snowflake);
 
-        //Compare snowflake timestamp with current timestamp with a 1 ms buffer for compute time
-        $this->assertLessThanOrEqual(1, abs($components['timestamp'] - $now));
+        //Compare snowflake timestamp with current timestamp with a 10 ms buffer for compute time
+        $this->assertLessThanOrEqual(10, abs($components['timestamp'] - $now));
 
         $this->assertEquals(static::MACHINE_ID, $components['machine']);
         $this->assertEquals(static::$sequenceId, $components['sequence']);

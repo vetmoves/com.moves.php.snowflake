@@ -10,4 +10,8 @@ class TwitterSnowflakeModel extends Model
     use EloquentTwitterSnowflakeId;
 
     protected $table = 'test_models';
+
+    public $snowflakeFields;
+
+    public $casts = [];
 }
