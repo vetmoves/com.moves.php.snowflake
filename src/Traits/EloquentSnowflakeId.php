@@ -52,7 +52,7 @@ trait EloquentSnowflakeId
         return array_filter(
             array_keys($this->attributes),
             function ($field) use ($keySuffix) {
-                return str_ends_with($field, $keySuffix);
+                return str_ends_with($field, "_$keySuffix");
             }
         );
     }
