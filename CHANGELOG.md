@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.5.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.4.0...1.5.0) (2022-03-16)
+### Features
+
+* Add automatic string casting on id fields ([296d43](https://github.com/vetmoves/com.moves.php.snowflake/commit/296d43e924d6d62c7a3f5fa379823c2d71fc0d2b))
+
+
+---
+
 ## [1.4.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.3.0...1.4.0) (2022-02-21)
 ### Features
 
