@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.6.2](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.6.1...1.6.2) (2022-03-16)
+### Bug Fixes
+
+* Fix bug where model key name is not included in guessSnowflakeFields ([f73767](https://github.com/vetmoves/com.moves.php.snowflake/commit/f73767fd43fc5768bfaba8716473b7066d2f383f))
+
+
+---
+
 ## [1.6.1](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.6.0...1.6.1) (2022-03-16)
 ### Bug Fixes
 
