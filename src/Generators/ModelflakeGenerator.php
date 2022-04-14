@@ -98,7 +98,18 @@ class ModelflakeGenerator extends TwitterSnowflakeGenerator
         ];
     }
 
-    //region Generate Helpers
+    /**
+     * Determine if the given snowflake corresponds to the given model.
+     * @param int $snowflake
+     * @param int $model
+     * @return bool
+     */
+    public function isModel(int $snowflake, int $model): bool
+    {
+        return $this->parse($snowflake)['model'] == $model;
+    }
+
+        //region Generate Helpers
     /**
      * @throws SnowflakeBitLengthException
      * @return int The model identifier prefix

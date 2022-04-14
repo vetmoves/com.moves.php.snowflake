@@ -14,7 +14,7 @@ interface ISnowflakeGenerator
      * @param int $snowflake
      * @return bool
      */
-    public function isSnowflake(int $snowflake): bool;
+    public function isSnowflake(?int $snowflake): bool;
 
     /**
      * Parse a Snowflake ID into its component parts

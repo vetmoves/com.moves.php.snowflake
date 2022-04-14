@@ -92,9 +92,10 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
     /**
      * @inheritDoc
      */
-    public function isSnowflake(int $snowflake): bool
+    public function isSnowflake(?int $snowflake): bool
     {
-        return log($snowflake) > (static::MIN_BITS_TIMESTAMP + static::BITS_MACHINE + static::BITS_SEQUENCE);
+        return !is_null($snowflake) &&
+            log($snowflake) > (static::MIN_BITS_TIMESTAMP + static::BITS_MACHINE + static::BITS_SEQUENCE);
     }
 
     /**
