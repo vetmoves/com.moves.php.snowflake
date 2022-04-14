@@ -24,6 +24,12 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
     /** @var int Allocated bits for timestamp */
     const BITS_TIMESTAMP = 41;
 
+    /** @var int
+     * Minimum number of bits that would be reasonable to represent a snowflake timestamp.
+     * Used for determining if an integer is likely to be a snowflake ID.
+     */
+    const MIN_BITS_TIMESTAMP = 16;
+
     /** @var int Allocated bits for machine id */
     const BITS_MACHINE = 10;
 
@@ -81,6 +87,14 @@ class TwitterSnowflakeGenerator implements ISnowflakeGenerator
         return ($this->getTimestampBits() << (static::BITS_MACHINE + static::BITS_SEQUENCE))
             | ($this->getMachineBits() << (static::BITS_SEQUENCE))
             | $this->getSequenceBits();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isSnowflake(int $snowflake): bool
+    {
+        return log($snowflake) > (static::MIN_BITS_TIMESTAMP + static::BITS_MACHINE + static::BITS_SEQUENCE);
     }
 
     /**

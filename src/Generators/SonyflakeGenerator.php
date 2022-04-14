@@ -17,6 +17,12 @@ class SonyflakeGenerator extends TwitterSnowflakeGenerator
     /** @var int Allocated bits for timestamp */
     const BITS_TIMESTAMP = 39;
 
+    /** @var int
+     * Minimum number of bits that would be reasonable to represent a snowflake timestamp.
+     * Used for determining if an integer is likely to be a snowflake ID.
+     */
+    const MIN_BITS_TIMESTAMP = 12;
+
     /** @var int Allocated bits for machine id */
     const BITS_SEQUENCE = 8;
 

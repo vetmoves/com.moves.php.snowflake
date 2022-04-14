@@ -10,6 +10,13 @@ namespace Moves\Snowflake\Contracts;
 interface ISnowflakeGenerator
 {
     /**
+     * Determine if the given integer is a snowflake ID
+     * @param int $snowflake
+     * @return bool
+     */
+    public function isSnowflake(int $snowflake): bool;
+
+    /**
      * Parse a Snowflake ID into its component parts
      * @param int $snowflake Previously generated Snowflake ID
      * @return array Parsed Snowflake components

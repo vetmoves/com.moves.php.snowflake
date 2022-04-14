@@ -19,6 +19,12 @@ class ModelflakeGenerator extends TwitterSnowflakeGenerator
     /** @var int Allocated bits for model identifier prefix */
     const BITS_MODEL = 8;
 
+    /** @var int
+     * Minimum number of bits that would be reasonable to represent a snowflake timestamp.
+     * Used for determining if an integer is likely to be a snowflake ID.
+     */
+    const MIN_BITS_TIMESTAMP = 12;
+
     /** @var int Allocated bits for timestamp */
     const BITS_TIMESTAMP = 39;
 

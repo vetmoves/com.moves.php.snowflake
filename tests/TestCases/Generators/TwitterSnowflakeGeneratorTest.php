@@ -159,6 +159,14 @@ class TwitterSnowflakeGeneratorTest extends TestCase
         $generator->generate();
     }
 
+    public function testIsSnowflake()
+    {
+        $snowflake = $this->generator->generate();
+
+        $this->assertTrue($this->generator->isSnowflake($snowflake));
+        $this->assertFalse($this->generator->isSnowflake($snowflake & ~ (self::GENERATOR_CLASS)::TIMESTAMP_MASK));
+    }
+
     public function testParse()
     {
         $now = intval(microtime(true) * (static::GENERATOR_CLASS)::TIMESTAMP_MULTIPLIER)
