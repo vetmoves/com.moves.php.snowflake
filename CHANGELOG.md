@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.8.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.7.0...1.8.0) (2022-04-14)
+### Features
+
+* Allow null values for isSnowflake check, add isModel helper ([7b440a](https://github.com/vetmoves/com.moves.php.snowflake/commit/7b440aa29471cb2909a7d5c562e8d43d8b30dfa6))
+
+
+---
+
 ## [1.7.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.6.2...1.7.0) (2022-04-14)
 ### Features
 
