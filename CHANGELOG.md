@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.7.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.6.2...1.7.0) (2022-04-14)
+### Features
+
+* Add isSnowflake helper function ([28525d](https://github.com/vetmoves/com.moves.php.snowflake/commit/28525d02b1ce4a67994e6b67e7a2cb799882b580))
+
+
+---
+
 ## [1.6.2](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.6.1...1.6.2) (2022-03-16)
 ### Bug Fixes
 
