@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [2.0.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.8.0...2.0.0) (2022-09-07)
+
+### ⚠ BREAKING CHANGES
+
+* Upgrade to PHP 8.1 and Laravel 9 ([dc2823](https://github.com/vetmoves/com.moves.php.snowflake/commit/dc282320f416cf6e53d1eadacb15e4c1e645bf8f))
+
+
+---
+
 ## [1.8.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.7.0...1.8.0) (2022-04-14)
 ### Features
 
