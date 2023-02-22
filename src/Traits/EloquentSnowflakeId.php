@@ -87,7 +87,7 @@ trait EloquentSnowflakeId
 
             $lock->block(3);
 
-            $current = Cache::get('snowflake_sequence', -1);
+            $current = intval(Cache::get('snowflake_sequence', -1));
             $new = ($current + 1) % (1 << $generatorClass::BITS_SEQUENCE);
 
             Cache::put('snowflake_sequence', $new);
