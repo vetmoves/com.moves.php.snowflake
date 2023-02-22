@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [2.0.2](https://github.com/vetmoves/com.moves.php.snowflake/compare/2.0.1...2.0.2) (2023-02-22)
+
+### Bug Fixes
+
+* Force release sequence cache lock ([e9b24a](https://github.com/vetmoves/com.moves.php.snowflake/commit/e9b24ac91cfc91ba76a4305f362bdb9bf05eb10a))
+
+
+---
+
 ## [2.0.1](https://github.com/vetmoves/com.moves.php.snowflake/compare/2.0.0...2.0.1) (2023-02-22)
 
 ### Bug Fixes
