@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [2.0.1](https://github.com/vetmoves/com.moves.php.snowflake/compare/2.0.0...2.0.1) (2023-02-22)
+
+### Bug Fixes
+
+* Parse snowflake sequence integer ([6b67af](https://github.com/vetmoves/com.moves.php.snowflake/commit/6b67afbda47a0cdf65f23c724cbe1b3ba1eee513))
+
+
+---
+
 ## [2.0.0](https://github.com/vetmoves/com.moves.php.snowflake/compare/1.8.0...2.0.0) (2022-09-07)
 
 ### ⚠ BREAKING CHANGES
