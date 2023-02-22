@@ -92,7 +92,7 @@ trait EloquentSnowflakeId
 
             Cache::put('snowflake_sequence', $new);
 
-            optional($lock)->release();
+            optional($lock)->forceRelease();
 
             return $new;
         };
