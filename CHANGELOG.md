@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [2.0.3](https://github.com/vetmoves/com.moves.php.snowflake/compare/2.0.2...2.0.3) (2023-02-27)
+
+### Bug Fixes
+
+* Use different keys for atomic lock and sequence value ([de5a45](https://github.com/vetmoves/com.moves.php.snowflake/commit/de5a458aab14f60f7d6f53a4b1cc905622913764))
+
+
+---
+
 ## [2.0.2](https://github.com/vetmoves/com.moves.php.snowflake/compare/2.0.1...2.0.2) (2023-02-22)
 
 ### Bug Fixes
