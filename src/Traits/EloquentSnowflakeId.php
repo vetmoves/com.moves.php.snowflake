@@ -83,14 +83,14 @@ trait EloquentSnowflakeId
         $generatorClass = $this->getGeneratorClass();
 
         return function() use ($generatorClass): int  {
-            $lock = Cache::lock('snowflake_sequence');
+            $lock = Cache::lock('snowflake_sequence_lock');
 
             $lock->block(3);
 
-            $current = intval(Cache::get('snowflake_sequence', -1));
+            $current = intval(Cache::get('snowflake_sequence_value', -1));
             $new = ($current + 1) % (1 << $generatorClass::BITS_SEQUENCE);
 
-            Cache::put('snowflake_sequence', $new);
+            Cache::put('snowflake_sequence_value', $new);
 
             optional($lock)->forceRelease();
 

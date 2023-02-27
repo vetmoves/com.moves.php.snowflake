@@ -32,7 +32,7 @@ class EloquentTwitterSnowflakeIdTest extends TestCase
 
         $this->assertLessThanOrEqual(25, abs($components['timestamp'] - $timestamp));
         $this->assertEquals(config('snowflake.machine_id'), $components['machine']);
-        $this->assertEquals(Cache::get('snowflake_sequence'), $components['sequence']);
+        $this->assertEquals(Cache::get('snowflake_sequence_value'), $components['sequence']);
 
         return $components;
     }
