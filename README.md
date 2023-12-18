@@ -1,3 +1,6 @@
+# Abandoned
+This package is abandoned, and the source has been transferred to our primary application repository [vetmoves/com.moves.web](https://github.com/vetmoves/com.moves.web)
+
 # Snowflake
 ## 🚨 WARNINGS 🚨
 This package is only compatible with 64-bit installations of PHP.
